@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Platform } from 'react-native';
 import { NativeTabs, Icon, Label } from 'expo-router/unstable-native-tabs';
@@ -19,6 +20,12 @@ export default function TabLayout() {
       icon: 'person.fill',
       label: 'Profile',
     },
+    {
+      name: 'settings',
+      route: '/(tabs)/settings',
+      icon: 'gear',
+      label: 'Settings',
+    },
   ];
 
   // Use NativeTabs for iOS, custom FloatingTabBar for Android and Web
@@ -32,6 +39,10 @@ export default function TabLayout() {
         <NativeTabs.Trigger name="profile">
           <Icon sf="person.fill" drawable="ic_profile" />
           <Label>Profile</Label>
+        </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="settings">
+          <Icon sf="gear" drawable="ic_settings" />
+          <Label>Settings</Label>
         </NativeTabs.Trigger>
       </NativeTabs>
     );
@@ -48,6 +59,7 @@ export default function TabLayout() {
       >
         <Stack.Screen name="(home)" />
         <Stack.Screen name="profile" />
+        <Stack.Screen name="settings" />
       </Stack>
       <FloatingTabBar tabs={tabs} />
     </>

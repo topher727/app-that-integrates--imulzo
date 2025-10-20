@@ -15,6 +15,12 @@ export default function TabLayout() {
       label: 'Home',
     },
     {
+      name: 'contacts',
+      route: '/(tabs)/contacts',
+      icon: 'person.2.fill',
+      label: 'Contacts',
+    },
+    {
       name: 'profile',
       route: '/(tabs)/profile',
       icon: 'person.fill',
@@ -36,6 +42,10 @@ export default function TabLayout() {
           <Icon sf="house.fill" drawable="ic_home" />
           <Label>Home</Label>
         </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="contacts">
+          <Icon sf="person.2.fill" drawable="ic_contacts" />
+          <Label>Contacts</Label>
+        </NativeTabs.Trigger>
         <NativeTabs.Trigger name="profile">
           <Icon sf="person.fill" drawable="ic_profile" />
           <Label>Profile</Label>
@@ -54,10 +64,11 @@ export default function TabLayout() {
       <Stack
         screenOptions={{
           headerShown: false,
-          animation: 'none', // Remove fade animation to prevent black screen flash
+          animation: 'none',
         }}
       >
         <Stack.Screen name="(home)" />
+        <Stack.Screen name="contacts" />
         <Stack.Screen name="profile" />
         <Stack.Screen name="settings" />
       </Stack>

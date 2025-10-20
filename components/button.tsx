@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   ActivityIndicator,
@@ -8,9 +9,9 @@ import {
   useColorScheme,
   ViewStyle,
 } from "react-native";
-import { appleBlue, zincColors } from "@/constants/Colors";
+import { colors } from "@/styles/commonStyles";
 
-type ButtonVariant = "filled" | "outline" | "ghost";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps {
@@ -26,7 +27,7 @@ interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({
   onPress,
-  variant = "filled",
+  variant = "primary",
   size = "md",
   disabled = false,
   loading = false,
@@ -46,7 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
     lg: { height: 55, fontSize: 18, padding: 20 },
   };
 
-  const getVariantStyle = () => {
+  const getVariantStyle = (): ViewStyle => {
     const baseStyle: ViewStyle = {
       borderRadius: 12,
       flexDirection: "row",
@@ -55,37 +56,51 @@ export const Button: React.FC<ButtonProps> = ({
     };
 
     switch (variant) {
-      case "filled":
+      case "primary":
         return {
           ...baseStyle,
-          backgroundColor: isDark ? zincColors[50] : zincColors[900],
+          backgroundColor: colors.primary,
+        };
+      case "secondary":
+        return {
+          ...baseStyle,
+          backgroundColor: colors.secondary,
         };
       case "outline":
         return {
           ...baseStyle,
           backgroundColor: "transparent",
-          borderWidth: 1,
-          borderColor: isDark ? zincColors[700] : zincColors[300],
+          borderWidth: 2,
+          borderColor: colors.primary,
         };
       case "ghost":
         return {
           ...baseStyle,
           backgroundColor: "transparent",
+        };
+      default:
+        return {
+          ...baseStyle,
+          backgroundColor: colors.primary,
         };
     }
   };
 
   const getTextColor = () => {
     if (disabled) {
-      return isDark ? zincColors[500] : zincColors[400];
+      return colors.textSecondary;
     }
 
     switch (variant) {
-      case "filled":
-        return isDark ? zincColors[900] : zincColors[50];
+      case "primary":
+        return "#ffffff";
+      case "secondary":
+        return "#000000";
       case "outline":
       case "ghost":
-        return appleBlue;
+        return colors.primary;
+      default:
+        return "#ffffff";
     }
   };
 
@@ -93,12 +108,12 @@ export const Button: React.FC<ButtonProps> = ({
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
-      style={[
+      style={({ pressed }) => [
         getVariantStyle(),
         {
           height: sizeStyles[size].height,
           paddingHorizontal: sizeStyles[size].padding,
-          opacity: disabled ? 0.5 : 1,
+          opacity: disabled ? 0.5 : pressed ? 0.8 : 1,
         },
         style,
       ]}
